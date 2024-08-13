@@ -10,8 +10,6 @@ local servers = {
 	"tsserver",
 	"tailwindcss",
 	"eslint",
-	"pyre",
-	"ruff_lsp",
 	"gopls",
 	"golangci_lint_ls",
 	"templ",
@@ -33,6 +31,7 @@ end
 -- 	on_init = on_init,
 -- 	capabilities = capabilities,
 -- })
+
 --emmet
 lspconfig.emmet_language_server.setup({
 	filetypes = {
@@ -73,8 +72,3 @@ lspconfig.emmet_language_server.setup({
 		variables = {},
 	},
 })
-
--- require("null-ls").setup({
--- 	on_attach = on_attach,
--- })
--- require("lspconfig").ruff_lsp.setup({})

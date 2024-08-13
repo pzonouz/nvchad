@@ -17,6 +17,17 @@ return {
 		"williamboman/mason.nvim",
 		opts = {
 			ensure_installed = {
+				"html",
+				"cssls",
+				"tsserver",
+				"tailwindcss",
+				"eslint",
+				"pyre",
+				"ruff_lsp",
+				"gopls",
+				"golangci_lint_ls",
+				"templ",
+				"clangd",
 				"lua-language-server",
 				"stylua",
 				"typescript-language-server",
@@ -219,66 +230,12 @@ return {
 		"mfussenegger/nvim-lint",
 		config = function()
 			require("lint").linters_by_ft = {
-				-- lua={"luacheck"},
+				lua = { "luacheck" },
 				markdown = { "vale" },
-				python = { "pylint" },
+				-- python = { "pylint" },
 				cpp = { "cpplint", "cppcheck", "clangtidy" },
 				make = { "checkmake" },
 			}
 		end,
 	},
-	-- {
-	-- 	"nvimtools/none-ls.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- 	config = function()
-	-- 		local null_ls = require("null-ls")
-	-- 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-	-- 		null_ls.setup({
-	-- 			debug = true,
-	-- 			sources = {
-	-- 				--LUA------------------------------------------------------------------------
-	-- 				null_ls.builtins.formatting.stylua,
-	-- 				--PYTHON----------------------------------------------------------------------
-	-- 				null_ls.builtins.diagnostics.pylint.with({
-	-- 					diagnostics_postprocess = function(diagnostic)
-	-- 						diagnostic.code = diagnostic.message_id
-	-- 					end,
-	-- 				}),
-	-- 				null_ls.builtins.formatting.isort,
-	-- 				null_ls.builtins.formatting.black,
-	-- 				null_ls.builtins.formatting.djlint,
-	-- 				--WEB--------------------------------------------------------------------------
-	-- 				null_ls.builtins.formatting.prettierd,
-	-- 				--C/C++----------------------------------------------------------------------------
-	-- 				null_ls.builtins.diagnostics.cpplint.with({ extra_args = { "—filter", "-legal/copyright" } }),
-	-- 				null_ls.builtins.formatting.clang_format,
-	-- 				--GO---------------------------------------------------------------------------
-	-- 				null_ls.builtins.formatting.goimports,
-	-- 				null_ls.builtins.formatting.goimports_reviser,
-	-- 				null_ls.builtins.formatting.gofumpt,
-	-- 				null_ls.builtins.code_actions.gomodifytags,
-	-- 				null_ls.builtins.code_actions.impl,
-	-- 				-- null_ls.builtins.diagnostics.semgrep,
-	-- 			},
-	-- 			on_attach = function(client, bufnr)
-	-- 				if client.supports_method("textDocument/formatting") then
-	-- 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-	-- 					vim.api.nvim_create_autocmd("BufWritePre", {
-	-- 						group = augroup,
-	-- 						buffer = bufnr,
-	-- 						callback = function()
-	-- 							vim.lsp.buf.format({
-	-- 								bufnr = bufnr,
-	-- 								async = false,
-	-- 								filter = function(c)
-	-- 									return c.name == "null-ls"
-	-- 								end,
-	-- 							})
-	-- 						end,
-	-- 					})
-	-- 				end
-	-- 			end,
-	-- 		})
-	-- 	end,
-	-- },
 }
