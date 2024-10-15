@@ -11,6 +11,7 @@ local options = {
 		cpp = { "astyle" },
 		c = { "astyle" },
 		go = { "goimports", "goimports-reviser", "gofmt" },
+		php = { "php_cs_fixer" },
 	},
 
 	format_on_save = {

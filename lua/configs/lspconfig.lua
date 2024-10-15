@@ -14,6 +14,7 @@ local servers = {
 	"golangci_lint_ls",
 	"templ",
 	"clangd",
+	"intelephense",
 }
 
 -- lsps with default config
