@@ -1,5 +1,101 @@
 return {
 	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = {
+			size = 20, -- You can adjust this to your liking
+			open_mapping = [[<c-\>]], -- The key mapping to open the terminal
+			direction = "float", -- Set the direction to float
+			float_opts = {
+				border = "curved", -- You can set the border style ('single', 'double', 'rounded', 'solid', 'shadow')
+				winblend = 7, -- Set the transparency level (0-100)
+			},
+		},
+		lazy = false,
+	},
+	{
+		"sindrets/diffview.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		lazy = false,
+	},
+	{
+		"toppair/peek.nvim",
+		event = { "VeryLazy" },
+		build = "deno task --quiet build:fast",
+		config = function()
+			require("peek").setup()
+			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = { "rcarriga/nvim-dap-ui", "nvim-neotest/nvim-nio" },
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+			-- dap.setup()
+			dapui.setup()
+			-- javascript google chrome
+			dap.adapters.chrome = {
+				type = "executable",
+				command = "node",
+				args = { os.getenv("HOME") .. "/.local/share/vscode-chrome-debug/out/src/chromeDebug.js" }, -- TODO adjust
+			}
+
+			dap.configurations.javascriptreact = { -- change this to javascript if needed
+				{
+					type = "chrome",
+					request = "attach",
+					program = "${file}",
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					port = 9222,
+					webRoot = "${workspaceFolder}",
+				},
+			}
+			dap.configurations.typescriptreact = { -- change to typescript if needed
+				{
+					type = "chrome",
+					request = "attach",
+					program = "${file}",
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					port = 9222,
+					webRoot = "${workspaceFolder}",
+				},
+			}
+
+			-- dap-ui
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+
+			-- keymaps
+			vim.keymap.set("n", "<F5>", dap.continue(), {})
+			vim.keymap.set("n", "<F10>", dap.step_over(), {})
+			vim.keymap.set("n", "<F11>", dap.step_into(), {})
+			vim.keymap.set("n", "<F12>", dap.step_out(), {})
+			vim.keymap.set("n", "<Leader>tb", dap.toggle_breakpoint(), {})
+			vim.keymap.set("n", "<Leader>sb", dap.set_breakpoint(), {})
+			vim.keymap.set("n", "<Leader>lp", dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: ")), {})
+			vim.keymap.set("n", "<Leader>dr", dap.repl.open(), {})
+			vim.keymap.set("n", "<Leader>dl", dap.run_last(), {})
+		end,
+	},
+	{
 		"stevearc/conform.nvim",
 		event = "BufWritePre",
 		config = function()
@@ -21,7 +117,7 @@ return {
 				"cssls",
 				"tsserver",
 				"tailwindcss",
-				"eslint",
+				-- "eslint",
 				"pyre",
 				"ruff_lsp",
 				"gopls",
@@ -183,15 +279,6 @@ return {
 		end,
 	},
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		build = "cd app && yarn install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		lazy = false,
@@ -230,7 +317,7 @@ return {
 		"mfussenegger/nvim-lint",
 		config = function()
 			require("lint").linters_by_ft = {
-				-- lua = { "luacheck" },
+				lua = { "luacheck" },
 				markdown = { "vale" },
 				-- python = { "pylint" },
 				cpp = { "cpplint", "cppcheck", "clangtidy" },

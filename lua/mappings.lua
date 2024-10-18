@@ -82,3 +82,8 @@ map("n", "<leader>fh", builtin.help_tags, {})
 
 -- TodoFixlist
 map("n", "<leader>td", "<cmd>TodoQuickFix<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", { noremap = true, silent = true })

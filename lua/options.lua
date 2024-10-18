@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 		-- require("lint").try_lint("cspell")
 	end,
 })
-o.foldmethod = "indent"
+-- o.foldmethod = "indent"
 
 require("luasnip").filetype_extend("javascript", { "javascriptreact" })
 require("luasnip").filetype_extend("javascript", { "html" })

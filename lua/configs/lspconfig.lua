@@ -7,14 +7,15 @@ local lspconfig = require("lspconfig")
 local servers = {
 	"html",
 	"cssls",
-	"tsserver",
+	"ts_ls",
 	"tailwindcss",
-	"eslint",
+	-- "eslint",
 	"gopls",
 	"golangci_lint_ls",
 	"templ",
 	"clangd",
 	"intelephense",
+	"marksman",
 }
 
 -- lsps with default config
@@ -26,12 +27,22 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
--- typescript
--- lspconfig.tsserver.setup({
--- 	on_attach = on_attach,
--- 	on_init = on_init,
--- 	capabilities = capabilities,
--- })
+-- C#
+lspconfig.omnisharp.setup({
+	settings = {
+		omnisharp = {
+			useModernNet = true, -- Optional: Use modern .NET SDK
+		},
+	},
+	cmd = { "/usr/bin/omnisharp" }, -- Replace with your OmniSharp executable path
+	filetypes = { "cs" },
+	root_dir = function(fname)
+		return lspconfig.util.root_pattern("*.sln", "*.csproj")(fname) or lspconfig.util.path.dirname(fname)
+	end,
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
+})
 
 --emmet
 lspconfig.emmet_language_server.setup({

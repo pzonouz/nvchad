@@ -7,15 +7,16 @@ local options = {
 		typescript = { "prettierd", "prettier" },
 		javascriptreact = { "prettierd", "prettier" },
 		typescriptreact = { "prettierd", "prettier" },
-		python = { "isort", "black", "djlint" },
+		python = { "isort", "black" },
 		cpp = { "astyle" },
 		c = { "astyle" },
+		cs = { "csharpier" },
 		go = { "goimports", "goimports-reviser", "gofmt" },
 		php = { "php_cs_fixer" },
 	},
 
 	format_on_save = {
-		timeout_ms = 500,
+		timeout_ms = 5000,
 		lsp_fallback = true,
 	},
 }
