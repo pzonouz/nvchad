@@ -8,7 +8,7 @@ local servers = {
 	"html",
 	"cssls",
 	"ts_ls",
-	"tailwindcss",
+	"djlsp",
 	-- "eslint",
 	"gopls",
 	"golangci_lint_ls",

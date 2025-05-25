@@ -3,6 +3,7 @@ local options = {
 		lua = { "stylua" },
 		css = { "prettierd" },
 		html = { "prettierd" },
+		htmldjango = { "djlint" },
 		javascript = { "prettierd", "prettier" },
 		typescript = { "prettierd", "prettier" },
 		javascriptreact = { "prettierd", "prettier" },
@@ -11,7 +12,7 @@ local options = {
 		cpp = { "astyle" },
 		c = { "astyle" },
 		cs = { "csharpier" },
-		go = { "goimports", "goimports-reviser", "gofmt" },
+		go = { "goimports", "goimports-reviser", "gofumpt" },
 		php = { "php_cs_fixer" },
 	},
 
